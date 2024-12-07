@@ -9,26 +9,7 @@ Custom Handlers: Utilities for common UI element interactions like buttons, menu
 Cross-Browser Compatibility: Supports Chromium, Firefox, and WebKit browsers.
 Robust Logging: Centralized logging for better debugging and test insights.
 Asynchronous Support: Handles asynchronous browser interactions seamlessly.
-Folder Structure
-graphql
-Copy code
-├── base/
-│   ├── base_page.py             # BasePage class with common methods for all pages
-├── handlers/
-│   ├── button_handler.py        # Button interaction utilities
-│   ├── menu_handler.py          # Generic menu handling utilities
-│   ├── textbox_handler.py       # Textbox handling utilities
-├── pages/
-│   ├── sample_page.py           # Encapsulates logic for a sample page
-├── utilities/
-│   ├── logger.py                # Logging utility
-├── tests/
-│   ├── test_sample_page.py      # Test cases for sample page
-├── reports/                     # Test report output
-│   ├── allure-results/          # Allure raw results
-├── requirements.txt             # Python dependencies
-├── pytest.ini                   # Pytest configuration
-├── README.md                    # Project overview
+
 Setup Instructions
 Prerequisites
 Install Python 3.8+.
