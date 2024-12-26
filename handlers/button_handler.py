@@ -24,8 +24,8 @@ class ButtonHandler(BaseHandler):
         logger.debug(f"Constructed XPath: {xpath}")
         try:
             # Wait for elements to appear and return handles
-            locator = page.locator(xpath)
-            locator.wait_for(state="attached", timeout=timeout)  # Wait for at least one element to attach
+            locator = page.get_by_role("button",name=btn,)
+            locator.wait_for(state="visible", timeout=timeout)  # Wait for at least one element to attach
             elements = locator.element_handles()  # Get all element handles
             logger.debug(f"Found {len(elements)} elements matching query '{btn}'.")
             return elements

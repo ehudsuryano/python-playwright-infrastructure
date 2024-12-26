@@ -1,6 +1,8 @@
 import allure
 import os
+from datetime import datetime
 from playwright.sync_api import Page
+from config import settings
 
 
 def capture_screenshot(page: Page, name: str):
@@ -11,12 +13,10 @@ def capture_screenshot(page: Page, name: str):
         page (Page): The Playwright Page instance.
         name (str): Name for the screenshot file (without extension).
     """
-    # Define the reports folder path one level above the current directory
-    reports_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "reports"))
-    os.makedirs(reports_dir, exist_ok=True)  # Ensure the directory exists
+    now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
     # Set the full path for the screenshot
-    screenshot_path = os.path.join(reports_dir, f"{name}.png")
+    screenshot_path = os.path.join(settings.REPORT_PATH, f"{name}_{now}.png")
 
     # Save the screenshot locally
     page.screenshot(path=screenshot_path)

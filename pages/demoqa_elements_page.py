@@ -1,3 +1,4 @@
+from exceptions.exceptions import ElementNotFoundException
 from handlers import demohqSideMenuItem_Handler
 from handlers import textbox_handler
 from handlers import button_handler
@@ -23,7 +24,7 @@ class DemoqaElementsPage(BasePage):  # Inherit from BasePage
         try:
             demohqSideMenuItem_Handler.SideMenuItemHandler.on_get_elements(driver, item_name)[0].click()
             logger.info(f"side menu item{item_name}  was clicked")
-        except Exception("element not found"):
+        except ElementNotFoundException(item_name,timeout = 5):
             logger.error(f"side menu item{item_name} was NOT clicked")
         return
 
@@ -31,13 +32,13 @@ class DemoqaElementsPage(BasePage):  # Inherit from BasePage
         try:
             textbox_handler.TextboxHandler.on_get_elements(driver, text_box)[0].type(text)
             logger.info(f"{text} was typed into {text_box}")
-        except Exception("element not found"):
+        except ElementNotFoundException(text_box,timeout = 5):
             logger.error(f"{text} was NOT typed into {text_box}")
 
     def click_button(self, driver, btn_name):
         try:
             button_handler.ButtonHandler.on_get_elements(driver, btn_name)[0].click()
             logger.info(f"side menu item{btn_name}  was clicked")
-        except Exception("element not found"):
+        except ElementNotFoundException(btn_name,timeout = 5):
             logger.error(f"side menu item{btn_name} was NOT clicked")
         return

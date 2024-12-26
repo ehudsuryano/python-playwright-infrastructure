@@ -1,4 +1,5 @@
 from playwright.sync_api import sync_playwright
+from exceptions.exceptions import ElementNotFoundException
 from handlers import card_handler
 from utilities.logger import get_logger
 from base.base_page import BasePage  # Import the BasePage class
@@ -22,7 +23,7 @@ class DemoqaHomePage(BasePage):  # Inherit from BasePage
         try:
             card_handler.CardHandler.on_get_elements(driver, "Elements")[0].click()
             logger.info("Elements card was clicked")
-        except Exception("element not found"):
+        except ElementNotFoundException("Elements",timeout = 5):
             logger.error("Elements card was NOT clicked")
         return
 
@@ -30,6 +31,6 @@ class DemoqaHomePage(BasePage):  # Inherit from BasePage
         try:
             card_handler.CardHandler.on_get_elements(driver, "Widgets")[0].click()
             logger.info("Widgets card was clicked")
-        except Exception("element not found"):
+        except ElementNotFoundException("Widgets",timeout = 5):
             logger.error("Widgets card was NOT clicked")
         return

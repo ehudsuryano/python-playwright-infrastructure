@@ -15,16 +15,10 @@ class SideMenuItemHandler(BaseHandler):
         :param timeout: Maximum time to wait for the elements (default is 10,000 ms)
         :return: List of element handles found using the constructed XPath, or an empty list if none are found
         """
-        # Construct the XPath to find the textbox element with the specified query
-        xpath = (
-            f"//*[text()='{item_name}']"
-        )
-
-        logger.debug(f"Constructed XPath: {xpath}")
-
+        logger.debug(f"Searching for item with name '{item_name}'")
         try:
             # Wait for elements to appear and return handles
-            locator = page.locator(xpath)
+            locator = page.get_by_text(item_name)
             locator.wait_for(state="attached", timeout=timeout)  # Wait for at least one element to attach
             elements = locator.element_handles()  # Get all element handles
             logger.debug(f"Found {len(elements)} elements matching query '{item_name}'.")

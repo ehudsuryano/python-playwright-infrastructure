@@ -1,13 +1,19 @@
+import math
+import os
 import time
+from distutils.command.config import config
 import pytest
-import allure
 from pages.demoqa_home_page import DemoqaHomePage
 from pages.demoqa_elements_page import DemoqaElementsPage
 from base.webdriver_setup import WebDriverSetup
 from utilities.logger import get_logger
 from utilities.screenshot_util import capture_screenshot  # Import the screenshot utility
 from pages.demoqa_widgets_page import DemoqaWidgetsPage
+from config import settings
+
 logger = get_logger()
+trace_path = os.path.join(settings.TRACE_PATH, "trace.zip")
+
 
 
 @pytest.fixture(scope="function")
@@ -19,14 +25,14 @@ def browser():
     yield browser_instance
     browser_instance.close()
 
-
 @pytest.fixture(scope="function")
 def page(browser):
     """
-    Fixture to create and yield a new browser context and page instance.
+    Fixture to create and yield a new browser context and page instance ,start and stop tracing.
     """
     context = WebDriverSetup.get_context(browser)
     page = context.new_page()
+    page.context.tracing.start(screenshots=True, snapshots=True)
     yield page
     context.close()
 
@@ -39,15 +45,13 @@ def test_home_page(page):
     home_page = DemoqaHomePage(page)  # Pass Playwright's page object
     home_page.load()  # Navigate to the home page
     logger.info("Loaded Home Page")
-
     try:
         # Validate the page title
         assert "DEMOQA" in home_page.get_title(), "Page title mismatch"
         logger.info("Test passed")
     except AssertionError as e:
         # Capture a screenshot on failure
-        screenshot_path = capture_screenshot(page, "failure-home-page")
-        logger.error(f"Test failed, screenshot captured at {screenshot_path}")
+        logger.error(f"Test failed, screenshot captured at check {settings.REPORT_PATH}")
         raise
 
 
@@ -98,3 +102,4 @@ def test_reach_widgets_page(page):
         capture_screenshot(page, "failure-home-page")
         logger.error("Test failed, screenshot captured")
         raise
+
