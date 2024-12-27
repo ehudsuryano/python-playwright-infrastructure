@@ -1,7 +1,5 @@
-import math
 import os
 import time
-from distutils.command.config import config
 import pytest
 from pages.demoqa_home_page import DemoqaHomePage
 from pages.demoqa_elements_page import DemoqaElementsPage

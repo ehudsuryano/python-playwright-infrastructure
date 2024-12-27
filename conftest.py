@@ -1,5 +1,4 @@
 import os
-
 import pytest
 from datetime import datetime
 from utilities.screenshot_util import capture_screenshot
